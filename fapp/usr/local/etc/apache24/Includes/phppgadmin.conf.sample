@@ -1,5 +1,5 @@
-Alias /phppgadmin "/usr/local/www/phpPgAdmin"
-<Directory "/usr/local/www/phpPgAdmin">
+Alias /phppgadmin /usr/local/www/phpPgAdmin
+<Directory /usr/local/www/phpPgAdmin>
     DirectoryIndex index.php
     Options None
     AllowOverride None
