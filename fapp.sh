@@ -6,7 +6,7 @@ source ~/fbsd-scripts/psql.sh
 # Install phpPgAdmin and configure it
 pkg install -y phppgadmin-php82 php82-pgsql php82-fileinfo php82-session php82-curl adodb5-php82
 
-cp -r source ~/fbsd-scripts/fapp/usr /
+cp -r ~/fbsd-scripts/fapp/usr /
 
 sed -i '' '/mod_cgid.so/s/#LoadModule/LoadModule/' /usr/local/etc/apache24/httpd.conf
 sed -i '' '/mod_cgi.so/s/LoadModule/#LoadModule/' /usr/local/etc/apache24/httpd.conf
