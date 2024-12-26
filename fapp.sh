@@ -1,12 +1,12 @@
-source /root/fbsd-scripts/openssl.sh
-source /root/fbsd-scripts/apache.sh
-source /root/fbsd-scripts/php.sh
-source /root/fbsd-scripts/psql.sh
+. ./openssl.sh
+. ./apache.sh
+. ./php.sh
+. ./psql.sh
 
 # Install phpPgAdmin and configure it
 pkg install -y phppgadmin-php82 php82-pgsql php82-fileinfo php82-session php82-curl adodb5-php82
 
-cp -r /root/fbsd-scripts/fapp/usr /
+cp -r fapp/usr /
 
 sed -i '' '/mod_cgid.so/s/#LoadModule/LoadModule/' /usr/local/etc/apache24/httpd.conf
 sed -i '' '/mod_cgi.so/s/LoadModule/#LoadModule/' /usr/local/etc/apache24/httpd.conf
