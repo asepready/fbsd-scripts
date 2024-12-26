@@ -1,12 +1,13 @@
-. ./openssl.sh
-. ./apache.sh
-. ./php.sh
-. ./psql.sh
+# Include
+. ./components/openssl.sh
+. ./components/apache.sh
+. ./components/php.sh
+. ./components/psql.sh
 
 # Install phpPgAdmin and configure it
 pkg install -y phppgadmin-php82 php82-pgsql php82-fileinfo php82-session php82-curl adodb5-php82
 
-cp -r fapp/usr /
+cp -r ./fapp/usr /
 
 sed -i '' '/mod_cgid.so/s/#LoadModule/LoadModule/' /usr/local/etc/apache24/httpd.conf
 sed -i '' '/mod_cgi.so/s/LoadModule/#LoadModule/' /usr/local/etc/apache24/httpd.conf
