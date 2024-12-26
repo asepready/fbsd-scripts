@@ -1,17 +1,14 @@
 Change Password
 ```sh
 # Password User System Account Management
-root@fbsd14:~ # passwd postgres
+root@www:~ # passwd postgres
 Changing local password for postgres
 New Password: psql
 Retype New Password: psql
 root@www:~ # su - postgres
 
-# Login Databases;
-postgres@www:~ $ psql
-postgres=# ALTER USER postgres PASSWORD 'yourpasswd';
-ALTER ROLE
-postgres=# \q
+# Change Password User postgres;
+postgres@www:~ $ psql -c "ALTER USER postgres WITH PASSWORD 'yourpasswd'"
 
 # Managemen User;
 postgres@www:~ $ createuser admin -P
