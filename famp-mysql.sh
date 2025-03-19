@@ -20,6 +20,7 @@ sed -i '' '/mod_proxy.so/s/#LoadModule/LoadModule/' /usr/local/etc/apache24/http
 sed -i '' '/mod_proxy_fcgi.so/s/#LoadModule/LoadModule/' /usr/local/etc/apache24/httpd.conf
 sed -i '' 's%ServerAdmin you@example.com%ServerAdmin admin@localhost%g' /usr/local/etc/apache24/extra/httpd-ssl.conf
 sed -i '' 's%ServerName www.example.com:443%ServerName localhost:443%g' /usr/local/etc/apache24/extra/httpd-ssl.conf
+
 cd /root && sh bootstrap.sh
 sed -i '' 's%listen = 127.0.0.1:9000%listen = /var/run/php-fpm.sock;%g' /usr/local/etc/php-fpm.d/www.conf
 printf '<?php phpinfo(); ?>\n\n' > /usr/local/www/apache24/data/info.php
