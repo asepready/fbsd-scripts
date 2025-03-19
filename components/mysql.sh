@@ -12,4 +12,3 @@ mysql -u root -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('loc
 mysql -u root -e "DROP DATABASE IF EXISTS test"
 mysql -u root -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%'"
 mysql -u root -e "FLUSH PRIVILEGES"
-

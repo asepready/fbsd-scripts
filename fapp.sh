@@ -37,6 +37,6 @@ echo 'RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]' >> /usr/local/etc/apa
 cp /usr/local/etc/apache24/Includes/phppgadmin.conf.sample /usr/local/etc/apache24/Includes/phppgadmin.conf
 chown -R www:www /usr/local/www/phpPgAdmin
 
-sysrc php_fpm restart
+service php_fpm restart
 service apache24 restart
 service postgresql restart
