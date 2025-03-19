@@ -1,5 +1,5 @@
 # Package 
-pkg install mysql80-server
+pkg install -y mysql80-server
 
 # enable and start apache
 sysrc mysql_enable=YES
