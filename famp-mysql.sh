@@ -41,9 +41,10 @@ mysql -u root -e "CREATE DATABASE IF NOT EXISTS phpmyadmin;"
 mysql -u root -e "CREATE USER IF NOT EXISTS pma@'localhost' identified by 'pmapass'"
 mysql -u root -e "GRANT ALL PRIVILEGES on phpmyadmin.* to pma@'localhost'"
 mysql -u root -e "FLUSH PRIVILEGES"
+/usr/local/www/phpMyAdmin/sql
 cd /usr/local/www/phpMyAdmin/sql && mysql < create_tables.sql
 cp /usr/local/etc/apache24/Includes/phpmyadmin.conf.sample /usr/local/etc/apache24/Includes/phpmyadmin.conf
 chown -R www:www /usr/local/www/phpMyAdmin
 
-sysrc php_fpm restart
+service php_fpm restart
 service apache24 restart
