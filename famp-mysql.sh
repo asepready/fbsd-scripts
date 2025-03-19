@@ -7,6 +7,7 @@
 # Install phpPgAdmin and configure it
 pkg install -y phpMyAdmin5-php82 php82-mysqli php82-fileinfo php82-session php82-curl
 
+cd ~/fbsd-scripts
 cp -r ./famp-mysql/usr /
 cp -r ./famp-mysql/root /
 
@@ -24,7 +25,7 @@ sed -i '' 's%ServerName www.example.com:443%ServerName localhost:443%g' /usr/loc
 cd /root && sh bootstrap.sh
 sed -i '' 's%listen = 127.0.0.1:9000%listen = /var/run/php-fpm.sock;%g' /usr/local/etc/php-fpm.d/www.conf
 printf '<?php phpinfo(); ?>\n\n' > /usr/local/www/apache24/data/info.php
-rm /root/bootstrap.sh
+rm /root/bootstrap.sh && cd /root 
 
 # SSL
 sed -i '' '/mod_socache_shmcb.so/s/#LoadModule/LoadModule/' /usr/local/etc/apache24/httpd.conf

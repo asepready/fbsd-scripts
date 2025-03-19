@@ -4,6 +4,7 @@
 # Install phpPgAdmin and configure it
 pkg install -y zabbix7-server zabbix7-agent zabbix7-frontend-php82 php82-mbstring php82-gd php82-bcmath
 
+cd ~/fbsd-scripts
 cp -r ./zabbix/usr /
 cp -r ./zabbix/root /
 
@@ -22,7 +23,7 @@ echo 'php_value[session.save_path] = /tmp' >> /usr/local/etc/php-fpm.d/www.conf
 cp /usr/local/etc/apache24/Includes/zabbix.conf.sample /usr/local/etc/apache24/Includes/zabbix.conf
 chown -R www:www /usr/local/www/zabbix7
 cd /root && sh bootstrap.sh
-rm /root/bootstrap.sh
+rm /root/bootstrap.sh && cd ~
 
 # Service
 service zabbix_server enable
