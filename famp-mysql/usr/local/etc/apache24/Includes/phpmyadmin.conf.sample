@@ -1,0 +1,7 @@
+Alias /phpmyadmin "/usr/local/www/phpMyAdmin/"
+<Directory "/usr/local/www/phpMyAdmin/">
+    DirectoryIndex index.php
+    Options None
+    AllowOverride Limit
+    Require all granted
+</Directory>

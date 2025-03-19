@@ -2,12 +2,12 @@
 . ./components/openssl.sh
 . ./components/apache.sh
 . ./components/php.sh
-. ./components/psql.sh
+. ./components/mysql.sh
 
 # Install phpPgAdmin and configure it
-pkg install -y phppgadmin-php82 php82-pgsql php82-fileinfo php82-session php82-curl adodb5-php82
+pkg install -y phpMyAdmin5-php82 php82-mysqli php82-fileinfo php82-session php82-curl
 
-cp -r ./fapp/usr /
+cp -r ./famp-mysql/usr /
 
 sed -i '' '/mod_cgid.so/s/#LoadModule/LoadModule/' /usr/local/etc/apache24/httpd.conf
 sed -i '' '/mod_cgi.so/s/LoadModule/#LoadModule/' /usr/local/etc/apache24/httpd.conf
@@ -33,10 +33,14 @@ echo 'RewriteEngine On' >> /usr/local/etc/apache24/httpd.conf
 echo 'RewriteCond %{HTTPS} !=on' >> /usr/local/etc/apache24/httpd.conf
 echo 'RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]' >> /usr/local/etc/apache24/httpd.conf
 
-# Apps configuration PHPPgAdmin
-cp /usr/local/etc/apache24/Includes/phppgadmin.conf.sample /usr/local/etc/apache24/Includes/phppgadmin.conf
-chown -R www:www /usr/local/www/phpPgAdmin
+# Apps configuration PHPMyAdmin
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS phpmyadmin;"
+mysql -u root -e "CREATE USER IF NOT EXISTS pma@'localhost' identified by 'pmapass'"
+mysql -u root -e "GRANT ALL PRIVILEGES on phpmyadmin.* to pma@'localhost'"
+mysql -u root -e "FLUSH PRIVILEGES"
+cd /usr/local/www/phpMyAdmin/sql && mysql < create_tables.sql
+cp /usr/local/etc/apache24/Includes/phpmyadmin.conf.sample /usr/local/etc/apache24/Includes/phpmyadmin.conf
+chown -R www:www /usr/local/www/phpMyAdmin
 
 sysrc php_fpm restart
 service apache24 restart
-service postgresql restart
