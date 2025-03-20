@@ -18,7 +18,7 @@ cd /usr/local/share/zabbix7/server/database/mysql && mysql zabbix < images.sql
 cd /usr/local/share/zabbix7/server/database/mysql && mysql zabbix < data.sql
 cd /usr/local/share/zabbix7/server/database/mysql && mysql -u root -e "set global log_bin_trust_function_creators = 0"
 echo "Your DB_ZABBIX_PASSWD is written on this file /root/db_zabbix_pwd.txt"
-sed -i '' 's%# DBPassword=%DBPassword=$DBZABBIX_PASSWD%g' /usr/local/etc/zabbix7/zabbix_server.conf
+sed -i '' 's%# DBPassword=%DBPassword='$DBZABBIX_PASSWD'%g' /usr/local/etc/zabbix7/zabbix_server.conf
 chmod 400 /root/db_zabbix_pwd.txt
 
 # Generate Passowrd Root DB
