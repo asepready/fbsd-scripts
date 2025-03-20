@@ -1,0 +1,5 @@
+sysrc snmpd_enable="YES"
+sysrc snmpd_flags="-a"
+sysrc snmpd_conffile="/usr/local/share/snmp/snmpd.conf /etc/snmpd.conf"
+sysrc snmptrapd_enable="YES"
+sysrc snmptrapd_flags="-a -p /var/run/snmptrapd.pid"
