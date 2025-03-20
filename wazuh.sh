@@ -9,9 +9,9 @@ cp wazuh/usr /
 sed -e "s,%%SERVER_IP%%,$JAIL_IP,g" -i "" /usr/local/etc/opensearch/opensearch.yml
 cd /root/; fetch "https://people.freebsd.org/~acm/ports/wazuh/wazuh-gen-certs.tar.gz"
 cd /root/; tar xvfz wazuh-gen-certs.tar.gz
-echo 'dashboard_ip="$JAIL_IP"' > /root/wazuh-gen-certs/dashboard.lst
-echo 'indexer1_ip="$JAIL_IP"' > /root/wazuh-gen-certs/indexer.lst
-echo 'server1_ip="$JAIL_IP"' > /root/wazuh-gen-certs/server.lst
+echo 'dashboard_ip="'$JAIL_IP'"' > /root/wazuh-gen-certs/dashboard.lst
+echo 'indexer1_ip="'$JAIL_IP'"' > /root/wazuh-gen-certs/indexer.lst
+echo 'server1_ip="'$JAIL_IP'"' > /root/wazuh-gen-certs/server.lst
 cd /root/wazuh-gen-certs; echo y | sh gen-certs.sh
 
 mkdir -p /usr/local/etc/opensearch/certs
