@@ -26,6 +26,7 @@ cd /usr/local/www/phpMyAdmin/sql && mysql < create_tables.sql
 cp /usr/local/etc/apache24/Includes/phpmyadmin.conf.sample /usr/local/etc/apache24/Includes/phpmyadmin.conf
 chown -R www:www /usr/local/www/phpMyAdmin
 
+pkg install -y dns/powerdns php82-tokenizer
 # PowerDNS configuration
 mysql -u root -e "CREATE DATABASE IF NOT EXISTS powerdns;"
 mysql -u root -e "CREATE USER IF NOT EXISTS dns@'localhost' identified by 'dnspass';"
