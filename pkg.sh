@@ -17,7 +17,7 @@ pkg fetch -d -r FreeBSD -o /usr/local/repo $(pkg query -e '%a = 0' '%o')
 # Create index repos.
 pkg repo /usr/local/repo
 # Config client pkg.
-cat <<EOF | tee /usr/local/etc/pkg/repos/FreeBSD.conf
+cat <<EOF | tee /usr/local/etc/pkg/repos/localRepo.conf
 localRepo: {
   url: "file:///usr/local/repo",
   enabled: yes
