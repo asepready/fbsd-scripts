@@ -26,17 +26,16 @@ cd /usr/local/www/phpMyAdmin/sql && mysql < create_tables.sql
 cp /usr/local/etc/apache24/Includes/phpmyadmin.conf.sample /usr/local/etc/apache24/Includes/phpmyadmin.conf
 chown -R www:www /usr/local/www/phpMyAdmin
 
-pkg install -y dns/powerdns php82-tokenizer php82-gettext php82-intl
 # PowerDNS configuration
 mysql -u root -e "CREATE DATABASE IF NOT EXISTS pdnsdb;"
 mysql -u root -e "CREATE USER IF NOT EXISTS pdnsuser@'localhost' identified by 'pdnspass';"
 mysql -u root -e "GRANT ALL PRIVILEGES on pdnsdb.* to pdnsuser@'localhost';"
 mysql -u root -e "FLUSH PRIVILEGES;"
 
-cd /usr/local/share/doc/powerdns/; mysql -u root powerdns < schema.mysql.sql
+cd /usr/local/share/doc/powerdns/; mysql -u root pdnsdb < schema.mysql.sql
 #pdns_server --daemon=no --guardian=no --loglevel=9
-cd /usr/local/www; git clone https://github.com/poweradmin/poweradmin.git
-chown -R www:www /usr/local/www/poweradmin
+# PowerAdmin configuration
+. ./powerdns/config/ui-php.sh
 
 sysrc pdns_enable=yes
 service pdns start
