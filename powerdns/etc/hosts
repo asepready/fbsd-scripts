@@ -1,0 +1,4 @@
+::1			localhost localhost.my.domain
+127.0.0.1	localhost localhost.my.domain
+127.0.0.1	powerdns.domain.com	powerdns
+127.0.0.1	pdns.domain.com	pdns
