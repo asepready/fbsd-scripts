@@ -3,7 +3,8 @@
 #
 
 output.logstash:
-  hosts: ["127.0.0.1:5044"]
+  hosts: ["%%SERVER_IP%%:5044"]
+#  hosts: ["127.0.0.1:5044"]
 #  ssl.certificate_authorities: ["/usr/local/etc/beats/certs/root-ca.pem"]
 #  ssl.certificate: "/usr/local/etc/beats/certs/filebeat.pem"
 #  ssl.key: "/usr/local/etc/beats/certs/filebeat-key.pem"
