@@ -1,6 +1,9 @@
-JAIL_IP=10.0.0.2
+DEFAULT_IF=$(route -n get default | awk '/interface:/ {print $2}')
+SERVER_IP=$(ifconfig "$DEFAULT_IF" | grep 'inet ' | awk '{print $2}')
+export SERVER_IP
+
 cp wazuh/fstab /etc/
-sed -e "s|quarterly|latest|g" -i.bak /etc/pkg/FreeBSD.conf
+sed -e "s|quarterly|latest|g" -i.bak /etc/pkg/FreeBSD.conf; pkg update
 
 pkg install -y bash wazuh-indexer wazuh-server wazuh-dashboard openjdk17
 
@@ -21,17 +24,17 @@ cp wazuh/etc/hosts /etc/
 cp wazuh/root/pre-opensearch-init.sh /root/
 cp wazuh/root/post-opensearch-init.sh /root/
 
-echo "${JAIL_IP} wazuh.bsd.com" > /etc/hosts
-sed -e "s,%%SERVER_IP%%,${JAIL_IP},g" -i "" /usr/local/etc/beats/filebeat.yml
+echo "${SERVER_IP} wazuh.bsd.com" > /etc/hosts
+sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/beats/filebeat.yml
 chown root:wheel /usr/local/etc/beats/filebeat.yml
-sed -e "s,%%SERVER_IP%%,${JAIL_IP},g" -i "" /usr/local/etc/logstash/logstash.conf
+sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/logstash/logstash.conf
 chown root:wheel /usr/local/etc/logstash/logstash.conf
-sed -e "s,%%SERVER_IP%%,${JAIL_IP},g" -i "" /usr/local/etc/opensearch/opensearch.yml
+sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/opensearch/opensearch.yml
 chown root:wheel /usr/local/etc/opensearch/opensearch.yml
-sed -e "s,%%SERVER_IP%%,${JAIL_IP},g" -i "" /usr/local/etc/opensearch-dashboards/opensearch_dashboards.yml
+sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/opensearch-dashboards/opensearch_dashboards.yml
 chown root:wheel /usr/local/etc/opensearch-dashboards/opensearch_dashboards.yml
 chown root:wheel /etc/hosts
-sed -e "s,%%SERVER_IP%%,${JAIL_IP},g" -i "" /root/post-opensearch-init.sh
+sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /root/post-opensearch-init.sh
 chown root:wheel /root/pre-opensearch-init.sh
 chown root:wheel /root/post-opensearch-init.sh
 
@@ -44,9 +47,9 @@ cd /root/; fetch "https://people.freebsd.org/~acm/ports/wazuh/freebsd-logo.png"
 cd /root/; fetch "https://people.freebsd.org/~acm/ports/wazuh/freebsd-mark-logo.png"
 cd /root/; fetch "https://people.freebsd.org/~acm/ports/wazuh/wazuh-gen-certs.tar.gz"
 cd /root/; tar xvfz wazuh-gen-certs.tar.gz
-echo "dashboard_ip=${JAIL_IP}" > /root/wazuh-gen-certs/dashboard.lst
-echo "indexer1_ip=${JAIL_IP}" > /root/wazuh-gen-certs/indexer.lst
-echo "server1_ip=${JAIL_IP}" > /root/wazuh-gen-certs/server.lst
+echo "dashboard_ip=${SERVER_IP}" > /root/wazuh-gen-certs/dashboard.lst
+echo "indexer1_ip=${SERVER_IP}" > /root/wazuh-gen-certs/indexer.lst
+echo "server1_ip=${SERVER_IP}" > /root/wazuh-gen-certs/server.lst
 cd /root/wazuh-gen-certs; echo y | sh gen-certs.sh
 
 chmod 660 /var/ossec/etc/ossec.conf
