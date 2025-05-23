@@ -14,7 +14,6 @@ cp wazuh/usr/local/etc/beats/filebeat.yml /usr/local/etc/beats/
 cp wazuh/usr/local/etc/logstash/logstash.conf /usr/local/etc/logstash/
 cp wazuh/usr/local/etc/opensearch/opensearch.yml /usr/local/etc/opensearch/opensearch.yml
 cp wazuh/usr/local/etc/opensearch-dashboards/opensearch_dashboards.yml /usr/local/etc/opensearch-dashboards/
-cp wazuh/etc/hosts /etc/
 cp wazuh/root/pre-opensearch-init.sh /root/
 cp wazuh/root/post-opensearch-init.sh /root/
 
