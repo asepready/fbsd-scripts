@@ -26,15 +26,18 @@ cp wazuh/root/post-opensearch-init.sh /root/
 
 echo "${SERVER_IP} wazuh.bsd.com" > /etc/hosts
 sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/beats/filebeat.yml
-chown root:wheel /usr/local/etc/beats/filebeat.yml
 sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/logstash/logstash.conf
-chown root:wheel /usr/local/etc/logstash/logstash.conf
 sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/opensearch/opensearch.yml
-chown root:wheel /usr/local/etc/opensearch/opensearch.yml
 sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/opensearch-dashboards/opensearch_dashboards.yml
-chown root:wheel /usr/local/etc/opensearch-dashboards/opensearch_dashboards.yml
-chown root:wheel /etc/hosts
 sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /root/post-opensearch-init.sh
+
+chown root:wheel /etc/hosts
+chown root:wheel /usr/local/etc/beats/filebeat.yml
+chown root:wheel /usr/local/etc/logstash/logstash.conf
+chown -R opensearch:opensearch /usr/local/etc/opensearch/
+chmod 640 /usr/local/etc/opensearch/opensearch.yml
+chown root:wheel /usr/local/etc/opensearch-dashboards/opensearch_dashboards.yml
+
 chown root:wheel /root/pre-opensearch-init.sh
 chown root:wheel /root/post-opensearch-init.sh
 

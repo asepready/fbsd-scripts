@@ -41,5 +41,18 @@ echo " "
 sleep 10
 
 echo " "
-echo -e " \e[1;37m Passwords generated ...\e[0m"
+echo -e " \e[1;37m Passwords generated  ...\e[0m"
+echo -e " \e[1;37m Save /root/wazuhpass ...\e[0m"
 echo " "
+
+cat <<EOF | tee /root/wazuhpass
+ ################################################ 
+ Wazuh dashboard admin credentials                
+ Hostname : https://jail-host-ip:5601/app/wazuh   
+ Username : admin                                 
+ Password : ${adminpass}                          
+ ################################################ 
+ Wazuh agent enrollment password                  
+ Password : ${agentpass}                          
+ ################################################
+EOF
