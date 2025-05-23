@@ -1,12 +1,6 @@
-DEFAULT_IF=$(route -n get default | awk '/interface:/ {print $2}')
-SERVER_IP=$(ifconfig "$DEFAULT_IF" | grep 'inet ' | awk '{print $2}')
-export SERVER_IP
-
-cp wazuh/fstab /etc/
 sed -e "s|quarterly|latest|g" -i.bak /etc/pkg/FreeBSD.conf; pkg update
-
 pkg install -y bash wazuh-indexer wazuh-server wazuh-dashboard openjdk17
-
+cp wazuh/fstab /etc/
 openssl req -x509 -batch -nodes -days 365 -newkey rsa:2048 -subj "/C=US/ST=California/CN=Wazuh/" -keyout /var/ossec/etc/sslmanager.key -out /var/ossec/etc/sslmanager.cert
 chmod 640 /var/ossec/etc/sslmanager.key
 chmod 640 /var/ossec/etc/sslmanager.cert
@@ -23,6 +17,10 @@ cp wazuh/usr/local/etc/opensearch-dashboards/opensearch_dashboards.yml /usr/loca
 cp wazuh/etc/hosts /etc/
 cp wazuh/root/pre-opensearch-init.sh /root/
 cp wazuh/root/post-opensearch-init.sh /root/
+
+DEFAULT_IF=$(route -n get default | awk '/interface:/ {print $2}')
+SERVER_IP=$(ifconfig "$DEFAULT_IF" | grep 'inet ' | awk '{print $2}')
+export SERVER_IP
 
 echo "${SERVER_IP} localhost localhost.local" > /etc/hosts
 sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/beats/filebeat.yml
@@ -84,8 +82,8 @@ cp /root/wazuh-gen-certs/wazuh-certificates/root-ca.pem /usr/local/etc/opensearc
 chmod 640 /usr/local/etc/opensearch-dashboards/certs/root-ca.pem
 chown www:www /usr/local/etc/opensearch-dashboards/certs/root-ca.pem
 
-cp /root/freebsd-logo.png /usr/local/www/opensearch-dashboards/src/core/server/core_app/assets/logos/
-cp /root/freebsd-mark-logo.png /usr/local/www/opensearch-dashboards/src/core/server/core_app/assets/logos/
+mv /root/freebsd-logo.png /usr/local/www/opensearch-dashboards/src/core/server/core_app/assets/logos/
+mv /root/freebsd-mark-logo.png /usr/local/www/opensearch-dashboards/src/core/server/core_app/assets/logos/
 
 sysrc wazuh_manager_enable=YES
 sysrc filebeat_enable=YES

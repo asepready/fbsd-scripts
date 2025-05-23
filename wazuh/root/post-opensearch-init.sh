@@ -6,9 +6,9 @@ echo " "
 
 sleep 30
 
-adminpass=$(openssl rand -base64 12 | sed 's/^/@/g')
-agentpass=$(openssl rand -base64 20 | sed 's/^/@/g')
-kibanapass=$(openssl rand -base64 12 | sed 's/^/@/g')
+adminpass=$(openssl rand -base64 16 | sed 's/[+/=]//g' | cut -c1-12 | sed 's/^/@/g')
+agentpass=$(openssl rand -base64 16 | sed 's/[+/=]//g' | cut -c1-14 | sed 's/^/@/g')
+kibanapass=$(openssl rand -base64 16 | sed 's/[+/=]//g' | cut -c1-12 | sed 's/^/@/g')
 
 adminnewhash=$(sh -c "OPENSEARCH_JAVA_HOME=/usr/local/openjdk17 bash /usr/local/lib/opensearch/plugins/opensearch-security/tools/hash.sh -p ${adminpass} | sed -e /^*/d")
 kibananewhash=$(sh -c "OPENSEARCH_JAVA_HOME=/usr/local/openjdk17 bash /usr/local/lib/opensearch/plugins/opensearch-security/tools/hash.sh -p ${kibanapass} | sed -e /^*/d")
