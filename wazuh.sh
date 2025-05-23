@@ -24,7 +24,7 @@ cp wazuh/etc/hosts /etc/
 cp wazuh/root/pre-opensearch-init.sh /root/
 cp wazuh/root/post-opensearch-init.sh /root/
 
-echo "${SERVER_IP} wazuh.bsd.com" > /etc/hosts
+echo "${SERVER_IP} localhost localhost.local" > /etc/hosts
 sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/beats/filebeat.yml
 sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/logstash/logstash.conf
 sed -e "s,%%SERVER_IP%%,${SERVER_IP},g" -i "" /usr/local/etc/opensearch/opensearch.yml
