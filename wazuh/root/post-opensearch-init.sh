@@ -29,9 +29,12 @@ sh -c "OPENSEARCH_JAVA_HOME=/usr/local/openjdk17 bash /usr/local/lib/opensearch/
 echo " "
 echo -e "\e[1;37m ################################################ \e[0m"
 echo -e "\e[1;37m Wazuh dashboard admin credentials                \e[0m"
-echo -e "\e[1;37m Hostname : https://jail-host-ip:5601/app/wazuh   \e[0m"
+echo -e "\e[1;37m Hostname : https://host-ip:5601/app/wazuh   \e[0m"
 echo -e "\e[1;37m Username : admin                                 \e[0m"
 echo -e "\e[1;37m Password : ${adminpass}                          \e[0m"
+echo -e "\e[1;37m ################################################ \e[0m"
+echo -e "\e[1;37m Kibana password                                  \e[0m"
+echo -e "\e[1;37m Password : ${kibanapass}                         \e[0m"
 echo -e "\e[1;37m ################################################ \e[0m"
 echo -e "\e[1;37m Wazuh agent enrollment password                  \e[0m"
 echo -e "\e[1;37m Password : ${agentpass}                          \e[0m"
@@ -47,12 +50,15 @@ echo " "
 
 cat <<EOF | tee /root/wazuhpass
  ################################################ 
- Wazuh dashboard admin credentials                
- Hostname : https://jail-host-ip:5601/app/wazuh   
- Username : admin                                 
- Password : ${adminpass}                          
+ Wazuh dashboard admin credentials
+ Hostname : https://host-ip:5601/app/wazuh
+ Username : admin
+ Password : ${adminpass}
  ################################################ 
- Wazuh agent enrollment password                  
- Password : ${agentpass}                          
+ Wazuh Kibana password
+ Password : ${kibanapass}
+ ################################################ 
+ Wazuh agent enrollment password
+ Password : ${agentpass}
  ################################################
 EOF
